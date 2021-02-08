@@ -15,9 +15,7 @@
 # Script Body -- BEGIN #
 
 ## Define Functions
-
 ## Main Function
-
 ## Call Main Function
 
 # Script Body -- END #
