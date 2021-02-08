@@ -24,7 +24,7 @@ mem_usage=''    #内存使用率：=内存使用/内存总量 * 100
 # Define variables -- END #
 
 # Script Body -- BEGIN #
-# Define Functions
+## Define Functions
 function GetCPUInfo(){
 
     cpu_total=$(cat /proc/cpuinfo | grep 'cpu MHz' | awk '{sum+=$NF}END{printf ("%d",sum+0.5)}')
@@ -73,6 +73,7 @@ function GetMemInfo(){
 
 }
 
+## Main Function
 function main(){
 
     GetCPUInfo
@@ -85,7 +86,7 @@ function main(){
 
 }
 
-# Main Function
+## Call Main Function
 main
 
 # Script Body -- END #

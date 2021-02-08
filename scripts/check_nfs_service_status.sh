@@ -5,12 +5,12 @@
 #      Author: Wenger Chan
 #     Version: V 1.0
 #        Date: 2021-xx-xx
-#       Usage: sh check_nfs_service_status.sh
+#       Usage: bash check_nfs_service_status.sh
 # Description: 监控nfs挂载目录, 若出现异常发出告警
 #              返回值：0=正常, 1=客户端异常, 2=服务端异常
 #=============================================
 
-## Define variables ##
+# Define variables -- BEGIN #
 DATE="$(date +'%F %H:%M:%S')"
 nfs_check_log_file='/var/log/nfscheck.log'
 nfs_server='192.168.1.12'

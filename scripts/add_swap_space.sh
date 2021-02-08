@@ -5,7 +5,7 @@
 #      Author: Wenger Chan
 #     Version: V 1.0
 #        Date: 2021-02-08
-#       Usage: sh add_swap_space.sh <0-9>
+#       Usage: bash add_swap_space.sh <0-9>
 # Description: Add swap space to host. 
 #=============================================
 
@@ -24,7 +24,7 @@ fi
 echo "${swap_file_size}" | grep -q '^[0-9]*[0-9]$'
 [ $? -eq 0 ] || exit 1
 
-# Calculate
+## Calculate
 # swap_bs_count=$(echo "${swap_file_size} * 256 * 1024" | bc)
 swap_bs_count="$(expr ${swap_file_size} \* 256 \* 1024)"
 swap_file_name="${swap_file_path}/${DATE}.swapfile"
