@@ -1,0 +1,56 @@
+[  {"id":1,"menu_id":"1","name":"分区名称","cn_name":"partition_name","compare_way":"","compare_value":"","description":""},
+  {"id":2,"menu_id":"1","name":"分区大小","cn_name":"partition_size","compare_way":"","compare_value":"","description":""},
+  {"id":3,"menu_id":"1","name":"剩余空间","cn_name":"partition_free","compare_way":"","compare_value":"","description":""},
+  {"id":4,"menu_id":"1","name":"剩余空间比","cn_name":"partition_freeper","compare_way":">=","compare_value":"10","description":"磁盘空间不足"},
+  {"id":5,"menu_id":"2","name":"服务名称","cn_name":"service_name","compare_way":"","compare_value":"没有未运行的自启服务","description":"发现系统异常服务"},
+  {"id":6,"menu_id":"2","name":"启动模式","cn_name":"service_startmode","compare_way":"","compare_value":"","description":""},
+  {"id":7,"menu_id":"2","name":"运行状态","cn_name":"service_state","compare_way":"","compare_value":"","description":""},
+  {"id":8,"menu_id":"2","name":"健康状态","cn_name":"service_status","compare_way":"","compare_value":"","description":""},
+  {"id":9,"menu_id":"3","name":"事件ID","cn_name":"syserr_eventcode","compare_way":"","compare_value":"近7天没有系统错误日志","description":"发现系统错误日志"},
+  {"id":10,"menu_id":"3","name":"来源","cn_name":"syserr_sourcename","compare_way":"","compare_value":"","description":""},
+  {"id":11,"menu_id":"3","name":"类型","cn_name":"syserr_eventtype","compare_way":"","compare_value":"","description":""},
+  {"id":12,"menu_id":"3","name":"数量","cn_name":"syserr_num","compare_way":"","compare_value":"","description":""},
+  {"id":13,"menu_id":"3","name":"最近出现时间","cn_name":"syserr_time","compare_way":"","compare_value":"","description":""},
+  {"id":14,"menu_id":"4","name":"事件ID","cn_name":"apperr_eventcode","compare_way":"","compare_value":"近7天没有应用程序错误日志","description":"发现应用程序错误日志"},
+  {"id":15,"menu_id":"4","name":"来源","cn_name":"apperr_sourcename","compare_way":"","compare_value":"","description":""},
+  {"id":16,"menu_id":"4","name":"类型","cn_name":"apperr_eventtype","compare_way":"","compare_value":"","description":""},
+  {"id":17,"menu_id":"4","name":"数量","cn_name":"apperr_num","compare_way":"","compare_value":"","description":""},
+  {"id":18,"menu_id":"4","name":"最近出现时间","cn_name":"apperr_time","compare_way":"","compare_value":"","description":""},
+  {"id":19,"menu_id":"5","name":"Processor\\ % Processor Time","cn_name":"processor_percentprocessortime","compare_way":"<","compare_value":"50","description":"CPU利用率偏高，可能是过多应用并发访问导致，可考虑优化应用程序"},
+  {"id":20,"menu_id":"6","name":"Processor\\ % Interrupt Time","cn_name":"processor_percentinterrupttime","compare_way":"<","compare_value":"10","description":"处理器接收处理硬件中断所使用的时间比例偏高，可能是过多应用并发访问导致，可考虑优化应用程序"},
+  {"id":21,"menu_id":"7","name":"Processor\\ % DPC Time","cn_name":"processor_percentdpctime","compare_way":"<","compare_value":"13","description":"处理器延迟过程调用时间值偏高，可能是过多应用并发访问导致，可考虑优化应用程序"},
+  {"id":22,"menu_id":"8","name":"System\\ Processor Queue Length","cn_name":"system_processorqueuelength","compare_way":"<","compare_value":"2","description":"系统队列长度值偏高，可能是由于过多应用并发访问导致，可考虑优化应用程序"},
+  {"id":23,"menu_id":"9","name":"System\\ Context Switches/Sec","cn_name":"system_contextswitchespersec","compare_way":"<","compare_value":"8000","description":"系统上下文交换值偏高，是由于过多应用并发访问导致的，可考虑优化应用程序，请保持关注"},
+  {"id":24,"menu_id":"10","name":"Memory\\ Available MBytes","cn_name":"memory_availablembytes","compare_way":">","compare_value":"100","description":"剩余的可用物理内存偏低，可能是某程序没有释放内存或过多的应用进程占用资源导致的，可考虑增加内存"},
+  {"id":25,"menu_id":"11","name":"Memory\\ Pages/sec","cn_name":"memory_pagespersec","compare_way":"<","compare_value":"50","description":"内存换页值偏高，这可能是由于过多的进程占用资源导致，可考虑增加内存"},
+  {"id":26,"menu_id":"12","name":"Memory\\ % Committed Bytes In Use","cn_name":"memory_percentcommittedbytesinuse","compare_way":"<","compare_value":"80","description":"内存占用率偏高，可能是过多的应用进程占用资源导致的，可考虑增加内存"},
+  {"id":27,"menu_id":"13","name":"PhysicalDisk\\ % Disk Time","cn_name":"physicaldisk_percentdisktime","compare_way":"<","compare_value":"50","description":"磁盘活动时间值偏高，是由于过多应用并发访问导致的，可考虑优化应用程序，请保持关注"},
+  {"id":28,"menu_id":"14","name":"PhysicalDisk\\ Avg. Disk Queue Length","cn_name":"physicaldisk_avgdiskqueuelength","compare_way":"<","compare_value":"2","description":"磁盘队列长度值偏高，是由于过多应用并发访问导致的，可考虑优化应用程序，请保持关注"},
+  {"id":29,"menu_id":"15","name":"PhysicalDisk\\ Disk Reads/sec","cn_name":"physicaldisk_diskreadspersec","compare_way":"<","compare_value":"50","description":"磁盘读取速率平均数偏高，是由于过多应用并发访问导致的，可考虑优化应用程序，请保持关注"},
+  {"id":30,"menu_id":"16","name":"PhysicalDisk\\ Disk Writes/sec","cn_name":"physicaldisk_diskwritespersec","compare_way":"<","compare_value":"50","description":"磁盘写入速率平均数偏高，是由于过多应用并发访问导致的，可考虑优化应用程序，请保持关注"}
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

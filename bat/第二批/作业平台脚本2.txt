@@ -1,0 +1,131 @@
+@echo off
+    ::partition
+    echo partition
+    echo @#@#
+    wmic path Win32_LogicalDisk where MediaType=12 get 'DeviceID','Size','FreeSpace' /value 2>nul
+    echo @@@@@@@@@@
+    ::service
+    echo service
+    echo @#@#
+    wmic service where "(StartMode='Auto' and State!='Running') or Status!='OK'" get 'Caption','StartMode','State','Status' /value 2>nul
+    echo @@@@@@@@@@
+    ::perf
+    echo perf
+    echo @#@#
+    for %%i in (1,2,3,4,5,6) do (
+        echo @@@@@
+        wmic path Win32_PerfFormattedData_PerfOS_Processor where Name='_Total' get 'PercentProcessorTime','PercentDPCTime','PercentInterruptTime' /value 2>nul
+        wmic path Win32_PerfFormattedData_PerfOS_System get 'ContextSwitchesPerSec','ProcessorQueueLength' /value 2>nul
+        wmic path Win32_PerfFormattedData_PerfOS_Memory get 'AvailableMBytes','PagesPerSec','PercentCommittedBytesInUse' /value 2>nul
+        wmic path Win32_PerfFormattedData_PerfDisk_PhysicalDisk where Name='_Total' get 'AvgDiskQueueLength','PercentDiskTime','DiskWritesPerSec','DiskReadsPerSec' /value 2>nul
+        CHOICE /T 10 /C ync /CS /D y /n >nul)
+    echo @@@@@@@@@@
+    ::vbs
+set tmpvbs=tmpvbs
+more +50 "%~f0">"%tmpvbs%"
+::syslog
+    echo syslog
+    echo @#@#
+    wmic service where "Name='EventLog'" get State/value | findstr "=Running" >nul 2>nul && cscript.exe //Nologo -e:vbs "%tmpvbs%" System
+    echo @@@@@@@@@@
+    ::applog
+    echo applog
+    echo @#@#
+    wmic service where "Name='EventLog'" get State/value | findstr "=Running" >nul 2>nul && cscript.exe //Nologo -e:vbs "%tmpvbs%" Application
+    echo @@@@@@@@@@
+    
+del tmpvbs /F /Q 2>nul
+goto :eof
+
+
+
+
+
+
+1.磁盘信息
+2.异常服务信息
+3.系统日志
+4.应用日志
+5.CPU使用率
+6.内存使用率
+7.磁盘IO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+on error resume next
+dim a,objDict,key,wql
+Set objArgs = WScript.Arguments
+Set objDict = WSH.CreateObject("Scripting.Dictionary")
+strComputer = "."
+Set objSWbemLocator = CreateObject("WbemScripting.SWbemLocator")
+Set objSWbemServices = objSWbemLocator.ConnectServer
+wql="Select * from Win32_NTLogEvent where TimeGenerated>'20200918160000.000000-000' and (EventType='1' or EventType='2') and Logfile='" & objArgs(0) &"'"
+Set colItems = objSWbemServices.ExecQuery(wql)
+For Each colItem In colItems
+    a=0
+    For Each Item In colItems
+        if Item.EventCode=colItem.EventCode and Item.SourceName=colItem.SourceName then
+            a=a+1
+        end if
+    next
+    key="EventCode" & colItem.EventCode & "SourceName" & colItem.SourceName & "EventType" & colItem.EventType
+    If not objDict.Exists(key) Then
+        objDict.add key ,a
+        WScript.Echo
+        WScript.Echo "SourceName:" & colItem.SourceName
+        WScript.Echo "EventCode:" & colItem.EventCode
+        WScript.Echo "EventType:" & colItem.EventType
+        WScript.Echo "Number:" & a
+        WScript.Echo "TimeGenerated:" & colItem.TimeGenerated
+        WScript.Echo
+    end if
+Next
+    

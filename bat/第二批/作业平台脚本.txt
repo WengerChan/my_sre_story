@@ -1,0 +1,34 @@
+@echo off
+hostname=test_windows
+
+# NTP服务器
+set regpath27=HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters
+set regkey27=NtpServer
+reg query %regpath27% /v %regkey27%>nul 2>nul&&goto :AA27||goto :BB27
+:AA27
+  For /f "tokens=1,2,3,4,*" %%i in ('Reg Query "%regpath27%"^|findstr /I "\<%regkey27%\>" ') do Set a=%%k
+  echo [%regpath27%]@@"%regkey27%"="%a%"
+  goto :reg28
+:BB27
+  echo [%regpath27%]@@"%regkey27%"=null
+    goto :reg28
+
+:reg28
+exit 0
+
+::获取物理内存大小%Totalmemory%
+for /f "usebackq tokens=2 delims==" %%i in (`wmic OS get TotalVisibleMemorySize /value`) do (
+set Totalmemory=%%i
+)
+echo Totalmemory=%Totalmemory%^KB
+
+wmic os get CSName/value |findstr CSName 2>null
+
+$ips=gwmi win32_networkadapterconfiguration -ComputerName mail -ErrorAction Continue |where{$_.ipaddress -ne $null}
+if($ips -eq $null){
+   $ips="ip不存在"
+   }else{
+        $ips=($($ips.ipaddress)).split(" ")|where{$_ -like "*.*.*.*"}
+        $ips=$ips -join "`n" #将数组内的元素组成一个对象#$ips=$ips -join "."
+    }
+        echo "ips=$ips" 2>null
