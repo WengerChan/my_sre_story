@@ -4,7 +4,7 @@
 # Script Name: install_vmware_tools_el6.sh
 #      Author: Wenger Chan
 #     Version: V 1.0
-#        Date: 2021-02-09
+#        Date: 2021-02-18
 #       Usage: bash install_vmware_tools_el6.sh
 # Description: Install VMware Tools on Host(Only suitable for RHEL 6, with kernel '2.6.32-754.15.3.el6.x86_64')
 #=============================================
@@ -15,10 +15,9 @@
 # Script Body -- BEGIN #
 
 ## Define Functions
-
 function installVMwareTools(){
     
-	#安装
+	# 安装
 	mkdir -p /tmp/vmware-install-dir
 	cd /tmp/vmware-install-dir
 	
@@ -50,7 +49,7 @@ function installVMwareTools(){
 EOF
 
 
-	#清理安装包
+	# 清理安装包
     if [ $? -eq 0 ];then
         cd /tmp
         rm /tmp/vmware-install-dir -rf 
@@ -74,6 +73,5 @@ function main(){
 
 ## Call Main Function
 main
-
 
 # Script Body -- END #
