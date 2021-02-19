@@ -146,7 +146,7 @@ case ${version} in
 esac
 
 setenforce Permissive
-sed -i 's@\(SELINUX\).*@\1=disabled@g' /etc/selinux/config
+sed -i 's@\(^SELINUX=\).*@\1disabled@g' /etc/selinux/config
 
 
 ## 6.日志
