@@ -29,28 +29,3 @@
   {"id":29,"menu_id":"15","name":"PhysicalDisk\\ Disk Reads/sec","cn_name":"physicaldisk_diskreadspersec","compare_way":"<","compare_value":"50","description":"磁盘读取速率平均数偏高，是由于过多应用并发访问导致的，可考虑优化应用程序，请保持关注"},
   {"id":30,"menu_id":"16","name":"PhysicalDisk\\ Disk Writes/sec","cn_name":"physicaldisk_diskwritespersec","compare_way":"<","compare_value":"50","description":"磁盘写入速率平均数偏高，是由于过多应用并发访问导致的，可考虑优化应用程序，请保持关注"}
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
