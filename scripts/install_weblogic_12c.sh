@@ -3,8 +3,8 @@
 #=============================================
 # Script Name: install_weblogic_12c.sh
 #      Author: Wenger Chan
-#     Version: V 1.0
-#        Date: 2021-02-18
+#     Version: V 1.1
+#        Date: 2021-02-19
 #       Usage: bash install_weblogic_12c.sh
 # Description: 安装Weblogic 12c
 #=============================================
@@ -40,14 +40,6 @@ domainListenPort='7001'
 
 # Script Body -- BEGIN #
 
-## Define Functions
-#! /bin/bash
-#
-# Company: Canway
-# Date: 2020.11.03
-# Version: 1.0
-
-
 function configUser() {
 
     echo '----------"configUser()": Running Function----------'
@@ -56,7 +48,7 @@ function configUser() {
 
     [ $? -eq 0 ] && echo '----------"configUser()": Finished!----------' \
                  || (echo '----------"configUser()": Error, Failed!----------'; exit 1) 
-    [ $? -eq 1 ] && exit 1
+    [ $? -eq 0 ] || exit 1
 }
 
 
@@ -79,14 +71,15 @@ EOF
 
     [ $? -eq 0 ] && echo '----------"installJDK()": Finished!----------' \
                  || (echo '----------"installJDK()": Error, Failed!----------'; exit 1) 
-    [ $? -eq 1 ] && exit 1
+    [ $? -eq 0 ] || exit 1
 }
 
 
 function installWeblogic() {
     
     echo '----------"installWeblogic()": Running Function----------'
-
+    
+    [ -d "${MW_HOME}" ] || mkdir -p ${MW_HOME}
     wget -q ${weblogicDownloadUrl} -O /usr/local/src/${weblogicPackageName} &&\
     chown ${weblogicOwner}:${weblogicOwner} /usr/local/src/${weblogicPackageName} &&\
 	su - ${weblogicOwner} << EOFEOF
@@ -135,7 +128,7 @@ EOF
 
     [ $? -eq 0 ] && echo '----------"installWeblogic()": Finished!----------' \
                  || (echo '----------"installWeblogic()": Error, Failed!----------'; exit 1) 
-    [ $? -eq 1 ] && exit 1
+    [ $? -eq 0 ] || exit 1
 }
 
 
@@ -166,7 +159,7 @@ EOFEOF
 
     [ $? -eq 0 ] && echo '----------"createDomain()": Finished!----------' \
                  || (echo '----------"createDomain()": Error, Failed!----------'; exit 1) 
-    [ $? -eq 1 ] && exit 1
+    [ $? -eq 0 ] || exit 1
 }
 
 ## Main Function
