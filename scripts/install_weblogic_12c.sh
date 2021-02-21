@@ -79,7 +79,6 @@ function installWeblogic() {
     
     echo '----------"installWeblogic()": Running Function----------'
     
-    [ -d "${MW_HOME}" ] || mkdir -p ${MW_HOME}
     wget -q ${weblogicDownloadUrl} -O /usr/local/src/${weblogicPackageName} &&\
     chown ${weblogicOwner}:${weblogicOwner} /usr/local/src/${weblogicPackageName} &&\
 	su - ${weblogicOwner} << EOFEOF
@@ -117,6 +116,7 @@ PROXY_PWD=<SECURE VALUE>
 COLLECTOR_SUPPORTHUB_URL=
 EOF
 
+[ -d "${MW_HOME}" ] || mkdir -p ${MW_HOME}
 java -jar /usr/local/src/${weblogicPackageName} -silent -responseFile ${weblogicWlsRsp}  -invPtrLoc ${weblogicOraInst}
 
 EOFEOF
