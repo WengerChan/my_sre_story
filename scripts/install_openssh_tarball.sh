@@ -206,6 +206,11 @@ function configureOpenSSH(){
     sed -i 's/^GSSAPIAuthentication.*/#&/g' /etc/ssh/sshd_config
     sed -i 's/^GSSAPICleanupCredentials.*/#&/g' /etc/ssh/sshd_config
 
+    # 加入算法: （根据版本确定）
+    # KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,sntrup4591761x25519-sha512@tinyssh.org
+    # 允许root用户ssh远程：
+    # PermitRootLogin yes
+
     #RHEL7需要修改/usr/lib/systemd/system/sshd.service
     if [[ ${SYSTEM_VERSION} -eq 7 ]];then
 
