@@ -217,9 +217,24 @@ systemctl restart tftp
 systemctl restart httpd
 ```
 
-### 注
+### 注 1
 
 ```
 报错：/sbin/dmsquash-live-root: line 273: printf: write error: No space left on device
 解决：安装时将内存选择为2G以上
+```
+
+### 注 2
+
+```
+# suse 12sp5
+
+mount /dev/sr5 /sle12sp5
+ln -s /sle12sp5 /var/www/html/sle12sp5
+cp /sle12sp5/boot/x86_64/loader/{linux,initrd} /var/lib/tftpboot/sle12sp5/
+
+label 5
+menu label ^5) Install SUSE Linux Enterprise 12SP5 x84_64 with HTTP
+kernel sle12sp5/linux
+append initrd=sle12sp5/initrd install=http://192.168.1.100/sle12sp5 splash=silent showopts
 ```
