@@ -496,7 +496,7 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 > snapshot-revert                Revert a domain to a snapshot 
 > ``` 
 
-### 创建快照
+#### 创建快照
 
 > 1. `snapshot-create-as`    # 创建默认快照（一般为一串数字）
 > 2. `snapshot-create`       # 创建自定义名称快照
@@ -536,13 +536,13 @@ virsh blockpull --domain rhel79 --path /data/rhel79_3.qcow2 --base /data/test4.q
 virsh blockpull --domain rhel79 --path /data/test4.qcow2 --wait --verbose
 ```
 
-### 恢复快照
+#### 恢复快照
 
 ```sh
 virsh snapshot-revert --domain rhel79 --snapshotname 1614330821
 ```
 
-### 删除快照
+#### 删除快照
 
 ```sh
 virsh snapshot-delete rhel79 --snapshotname 1614330821
