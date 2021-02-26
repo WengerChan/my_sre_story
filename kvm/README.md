@@ -361,6 +361,8 @@ vnet0      bridge     br0        virtio      52:54:00:64:fc:47
 
 ### 添加/删除块设备(磁盘)
 
+#### 添加
+
 ```man
 SYNOPSIS
   attach-disk <domain> <source> <target> [--targetbus <string>] [--driver <string>] [--subdriver <string>] [--iothread <string>] [--cache <string>] 
@@ -402,263 +404,146 @@ $ virsh attach-disk --domain rhel79 --source /data/tmp.qcow2  --target vdb --tar
 </disk>
 ```
 
+#### 删除
 
+```man
+SYNOPSIS
+    detach-disk <domain> <target> [--persistent] [--config] [--live] [--current] [--print-xml]
 
- Domain Management (help keyword 'domain')
-    attach-device                  attach device from an XML file
-    attach-disk                    attach disk device
-    attach-interface               attach network interface
-    autostart                      autostart a domain
-    blkdeviotune                   Set or query a block device I/O tuning parameters.
-    blkiotune                      Get or set blkio parameters
-    blockcommit                    Start a block commit operation.
-    blockcopy                      Start a block copy operation.
-    blockjob                       Manage active block operations
-    blockpull                      Populate a disk from its backing image.
-    blockresize                    Resize block device of domain.
-    change-media                   Change media of CD or floppy drive
-    console                        connect to the guest console
-    cpu-stats                      show domain cpu statistics
-    create                         create a domain from an XML file
-    define                         define (but don't start) a domain from an XML file
-    desc                           show or set domain's description or title
-    destroy                        destroy (stop) a domain
-    detach-device                  detach device from an XML file
-    detach-device-alias            detach device from an alias
-    detach-disk                    detach disk device
-    detach-interface               detach network interface
-    domdisplay                     domain display connection URI
-    domfsfreeze                    Freeze domain's mounted filesystems.
-    domfsthaw                      Thaw domain's mounted filesystems.
-    domfsinfo                      Get information of domain's mounted filesystems.
-    domfstrim                      Invoke fstrim on domain's mounted filesystems.
-    domhostname                    print the domain's hostname
-    domid                          convert a domain name or UUID to domain id
-    domif-setlink                  set link state of a virtual interface
-    domiftune                      get/set parameters of a virtual interface
-    domjobabort                    abort active domain job
-    domjobinfo                     domain job information
-    domname                        convert a domain id or UUID to domain name
-    domrename                      rename a domain
-    dompmsuspend                   suspend a domain gracefully using power management functions
-    dompmwakeup                    wakeup a domain from pmsuspended state
-    domuuid                        convert a domain name or id to domain UUID
-    domxml-from-native             Convert native config to domain XML
-    domxml-to-native               Convert domain XML to native config
-    dump                           dump the core of a domain to a file for analysis
-    dumpxml                        domain information in XML
-    edit                           edit XML configuration for a domain
-    event                          Domain Events
-    inject-nmi                     Inject NMI to the guest
-    iothreadinfo                   view domain IOThreads
-    iothreadpin                    control domain IOThread affinity
-    iothreadadd                    add an IOThread to the guest domain
-    iothreaddel                    delete an IOThread from the guest domain
-    send-key                       Send keycodes to the guest
-    send-process-signal            Send signals to processes
-    lxc-enter-namespace            LXC Guest Enter Namespace
-    managedsave                    managed save of a domain state
-    managedsave-remove             Remove managed save of a domain
-    managedsave-edit               edit XML for a domain's managed save state file
-    managedsave-dumpxml            Domain information of managed save state file in XML
-    managedsave-define             redefine the XML for a domain's managed save state file
-    memtune                        Get or set memory parameters
-    perf                           Get or set perf event
-    metadata                       show or set domain's custom XML metadata
-    migrate                        migrate domain to another host
-    migrate-setmaxdowntime         set maximum tolerable downtime
-    migrate-getmaxdowntime         get maximum tolerable downtime
-    migrate-compcache              get/set compression cache size
-    migrate-setspeed               Set the maximum migration bandwidth
-    migrate-getspeed               Get the maximum migration bandwidth
-    migrate-postcopy               Switch running migration from pre-copy to post-copy
-    numatune                       Get or set numa parameters
-    qemu-attach                    QEMU Attach
-    qemu-monitor-command           QEMU Monitor Command
-    qemu-monitor-event             QEMU Monitor Events
-    qemu-agent-command             QEMU Guest Agent Command
-    reboot                         reboot a domain
-    reset                          reset a domain
-    restore                        restore a domain from a saved state in a file
-    resume                         resume a domain
-    save                           save a domain state to a file
-    save-image-define              redefine the XML for a domain's saved state file
-    save-image-dumpxml             saved state domain information in XML
-    save-image-edit                edit XML for a domain's saved state file
-    schedinfo                      show/set scheduler parameters
-    screenshot                     take a screenshot of a current domain console and store it into a file
-    set-lifecycle-action           change lifecycle actions
-    set-user-password              set the user password inside the domain
-    setmaxmem                      change maximum memory limit
-    setmem                         change memory allocation
-    setvcpus                       change number of virtual CPUs
-    shutdown                       gracefully shutdown a domain
-    start                          start a (previously defined) inactive domain
-    suspend                        suspend a domain
-    ttyconsole                     tty console
-    undefine                       undefine a domain
-    update-device                  update device from an XML file
-    vcpucount                      domain vcpu counts
-    vcpuinfo                       detailed domain vcpu information
-    vcpupin                        control or query domain vcpu affinity
-    emulatorpin                    control or query domain emulator affinity
-    vncdisplay                     vnc display
-    guestvcpus                     query or modify state of vcpu in the guest (via agent)
-    setvcpu                        attach/detach vcpu or groups of threads
-    domblkthreshold                set the threshold for block-threshold event for a given block device or it's backing chain element
+OPTIONS
+  [--domain] <string>  domain name, id or uuid
+  [--target] <string>  target of disk device
+  --persistent     make live change persistent
+  --config         affect next boot
+  --live           affect running domain
+  --current        affect current domain
+  --print-xml      print XML document rather than detach the disk
+```
 
- Domain Monitoring (help keyword 'monitor')
-    domblkerror                    Show errors on block devices
-    domblkinfo                     domain block device size information
-    domblklist                     list all domain blocks
-    domblkstat                     get device block stats for a domain
-    domcontrol                     domain control interface state
-    domif-getlink                  get link state of a virtual interface
-    domifaddr                      Get network interfaces' addresses for a running domain
-    domiflist                      list all domain virtual interfaces
-    domifstat                      get network interface stats for a domain
-    dominfo                        domain information
-    dommemstat                     get memory statistics for a domain
-    domstate                       domain state
-    domstats                       get statistics about one or multiple domains
-    domtime                        domain time
-    list                           list domains
+```sh
+virsh detach-disk --domain rhel79-clone --target vdb --config
+```
 
- Host and Hypervisor (help keyword 'host')
-    allocpages                     Manipulate pages pool size
-    capabilities                   capabilities
-    cpu-baseline                   compute baseline CPU
-    cpu-compare                    compare host CPU with a CPU described by an XML file
-    cpu-models                     CPU models
-    domcapabilities                domain capabilities
-    freecell                       NUMA free memory
-    freepages                      NUMA free pages
-    hostname                       print the hypervisor hostname
-    hypervisor-cpu-baseline        compute baseline CPU usable by a specific hypervisor
-    hypervisor-cpu-compare         compare a CPU with the CPU created by a hypervisor on the host
-    maxvcpus                       connection vcpu maximum
-    node-memory-tune               Get or set node memory parameters
-    nodecpumap                     node cpu map
-    nodecpustats                   Prints cpu stats of the node.
-    nodeinfo                       node information
-    nodememstats                   Prints memory stats of the node.
-    nodesuspend                    suspend the host node for a given time duration
-    sysinfo                        print the hypervisor sysinfo
-    uri                            print the hypervisor canonical URI
-    version                        show version
+### 连接到虚拟机
 
- Interface (help keyword 'interface')
-    iface-begin                    create a snapshot of current interfaces settings, which can be later committed (iface-commit) or restored (iface-rollback)
-    iface-bridge                   create a bridge device and attach an existing network device to it
-    iface-commit                   commit changes made since iface-begin and free restore point
-    iface-define                   define an inactive persistent physical host interface or modify an existing persistent one from an XML file
-    iface-destroy                  destroy a physical host interface (disable it / "if-down")
-    iface-dumpxml                  interface information in XML
-    iface-edit                     edit XML configuration for a physical host interface
-    iface-list                     list physical host interfaces
-    iface-mac                      convert an interface name to interface MAC address
-    iface-name                     convert an interface MAC address to interface name
-    iface-rollback                 rollback to previous saved configuration created via iface-begin
-    iface-start                    start a physical host interface (enable it / "if-up")
-    iface-unbridge                 undefine a bridge device after detaching its slave device
-    iface-undefine                 undefine a physical host interface (remove it from configuration)
+```sh
+$ virsh console rhel79
 
- Network Filter (help keyword 'filter')
-    nwfilter-define                define or update a network filter from an XML file
-    nwfilter-dumpxml               network filter information in XML
-    nwfilter-edit                  edit XML configuration for a network filter
-    nwfilter-list                  list network filters
-    nwfilter-undefine              undefine a network filter
-    nwfilter-binding-create        create a network filter binding from an XML file
-    nwfilter-binding-delete        delete a network filter binding
-    nwfilter-binding-dumpxml       network filter information in XML
-    nwfilter-binding-list          list network filter bindings
+# --force          force console connection (disconnect already connected sessions)
+# --safe           only connect if safe console handling is supported
+```
 
- Networking (help keyword 'network')
-    net-autostart                  autostart a network
-    net-create                     create a network from an XML file
-    net-define                     define an inactive persistent virtual network or modify an existing persistent one from an XML file
-    net-destroy                    destroy (stop) a network
-    net-dhcp-leases                print lease info for a given network
-    net-dumpxml                    network information in XML
-    net-edit                       edit XML configuration for a network
-    net-event                      Network Events
-    net-info                       network information
-    net-list                       list networks
-    net-name                       convert a network UUID to network name
-    net-start                      start a (previously defined) inactive network
-    net-undefine                   undefine a persistent network
-    net-update                     update parts of an existing network's configuration
-    net-uuid                       convert a network name to network UUID
+默认情况下, 直接执行命令连接到虚拟机时, 会卡住, 需要特殊配置
 
- Node Device (help keyword 'nodedev')
-    nodedev-create                 create a device defined by an XML file on the node
-    nodedev-destroy                destroy (stop) a device on the node
-    nodedev-detach                 detach node device from its device driver
-    nodedev-dumpxml                node device details in XML
-    nodedev-list                   enumerate devices on this host
-    nodedev-reattach               reattach node device to its device driver
-    nodedev-reset                  reset node device
-    nodedev-event                  Node Device Events
+#### RHEL/CentOS 6
 
- Secret (help keyword 'secret')
-    secret-define                  define or modify a secret from an XML file
-    secret-dumpxml                 secret attributes in XML
-    secret-event                   Secret Events
-    secret-get-value               Output a secret value
-    secret-list                    list secrets
-    secret-set-value               set a secret value
-    secret-undefine                undefine a secret
+- `/etc/securetty`中添加`ttyS0`
 
- Snapshot (help keyword 'snapshot')
-    snapshot-create                Create a snapshot from XML
-    snapshot-create-as             Create a snapshot from a set of args
-    snapshot-current               Get or set the current snapshot
-    snapshot-delete                Delete a domain snapshot
-    snapshot-dumpxml               Dump XML for a domain snapshot
-    snapshot-edit                  edit XML for a snapshot
-    snapshot-info                  snapshot information
-    snapshot-list                  List snapshots for a domain
-    snapshot-parent                Get the name of the parent of a snapshot
-    snapshot-revert                Revert a domain to a snapshot
+```sh
+echo "ttyS0" >> /etc/securetty
+```
 
- Storage Pool (help keyword 'pool')
-    find-storage-pool-sources-as   find potential storage pool sources
-    find-storage-pool-sources      discover potential storage pool sources
-    pool-autostart                 autostart a pool
-    pool-build                     build a pool
-    pool-create-as                 create a pool from a set of args
-    pool-create                    create a pool from an XML file
-    pool-define-as                 define a pool from a set of args
-    pool-define                    define an inactive persistent storage pool or modify an existing persistent one from an XML file
-    pool-delete                    delete a pool
-    pool-destroy                   destroy (stop) a pool
-    pool-dumpxml                   pool information in XML
-    pool-edit                      edit XML configuration for a storage pool
-    pool-info                      storage pool information
-    pool-list                      list pools
-    pool-name                      convert a pool UUID to pool name
-    pool-refresh                   refresh a pool
-    pool-start                     start a (previously defined) inactive pool
-    pool-undefine                  undefine an inactive pool
-    pool-uuid                      convert a pool name to pool UUID
-    pool-event                     Storage Pool Events
+- `/etc/grub.conf`中添加参数`console=ttyS0`
 
- Storage Volume (help keyword 'volume')
-    vol-clone                      clone a volume.
-    vol-create-as                  create a volume from a set of args
-    vol-create                     create a vol from an XML file
-    vol-create-from                create a vol, using another volume as input
-    vol-delete                     delete a vol
-    vol-download                   download volume contents to a file
-    vol-dumpxml                    vol information in XML
-    vol-info                       storage vol information
-    vol-key                        returns the volume key for a given volume name or path
-    vol-list                       list vols
-    vol-name                       returns the volume name for a given volume key or path
-    vol-path                       returns the volume path for a given volume name or key
-    vol-pool                       returns the storage pool for a given volume key or path
-    vol-resize                     resize a vol
-    vol-upload                     upload file contents to a volume
-    vol-wipe                       wipe a vol
+```x
+...
+title Red Hat Enterprise Linux (2.6.32-358.el6.x86_64)
+        root (hd0,0)
+        kernel /vmlinuz-2.6.32-358.el6.x86_64 ro ... rhgb quiet console=ttyS0    <== 添加 console=ttyS0
+        initrd /initramfs-2.6.32-358.el6.x86_64.img
+...
+```
 
+- `/etc/inittab`中添加`S0:12345:respawn:/sbin/agetty ttyS0 115200`
+
+```sh
+echo "S0:12345:respawn:/sbin/agetty ttyS0 115200"  >> /etc/inittab
+```
+
+#### RHEL/CentOS 7
+
+- 方法一: 执行命令添加参数"`console=ttyS0`"
+
+```sh
+grubby --update-kernel=ALL --args="console=ttyS0"
+```
+
+- 方法二: 手动编辑 `/etc/default/grub` , 添加参数"`console=ttyS0`", 然后使用 `grub2-mkconfig` 命令使配置生效
+
+```x
+# /etc/default/grub
+...
+GRUB_CMDLINE_LINUX="spectre_v2=retpoline rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet console=ttyS0"  <== 添加 console=ttyS0
+...
+```
+
+```sh
+grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+
+### 快照
+
+> ```x
+> snapshot-create                Create a snapshot from XML  
+> snapshot-create-as             Create a snapshot from a set of args  
+> snapshot-current               Get or set the current snapshot        <=当前快照
+> snapshot-delete                Delete a domain snapshot
+> snapshot-dumpxml               Dump XML for a domain snapshot         <=导出快照xml文件
+> snapshot-edit                  edit XML for a snapshot                <=编辑快照xml文件
+> snapshot-info                  snapshot information                   <=查看快照信息
+> snapshot-list                  List snapshots for a domain  
+> snapshot-parent                Get the name of the parent of a snapshot  
+> snapshot-revert                Revert a domain to a snapshot 
+> ``` 
+
+### 创建快照
+
+> 1. `snapshot-create-as`    # 创建默认快照（一般为一串数字）
+> 2. `snapshot-create`       # 创建自定义名称快照
+
+```sh
+$ virsh snapshot-create --domain rhel79
+$ virsh snapshot-create-as rhel79 --name rhel79-snapshot-1
+$ virsh snapshot-list rhel79
+
+ Name                 Creation Time             State
+------------------------------------------------------------
+ 1614330821           2021-02-26 17:13:41 +0800 shutoff
+ rhel79-snapshot-1    2021-02-26 17:14:08 +0800 shutoff
+```
+
+- 内置快照
+
+快照数据和base磁盘数据放在一个qcow2文件中。
+
+- 外置快照
+
+快照数据单独的qcow2文件存放。
+
+```sh
+# 1. 创建
+virsh snapshot-create-as --domain rhel79 --name fresh --disk-only --diskspec vda,snapshot=external,file=/data/rhel79_1.qcow2 --atomic
+
+# 2. 合并快照
+
+## 2.1 blockcommit将top镜像合并至低层的base镜像     快照路径:初始=>rhel79_1=>rhel79_2=>当前
+virsh blockcommit --domain rhel79 --base /data/rhel79_1.qcow2 --top /data/rhel79_2.qcow2 --wait --verbose
+
+## 2.2 blockpull将backing-file向上合并至active     快照路径: 初始=>rhel79_3=>rhel79_4=>当前
+# 合并快照3到当前使用的快照4中
+virsh blockpull --domain rhel79 --path /data/rhel79_3.qcow2 --base /data/test4.qcow2 --wait --verbose
+# 迁移虚拟机，合并base-image到active,合并需要一段时间
+virsh blockpull --domain rhel79 --path /data/test4.qcow2 --wait --verbose
+```
+
+### 恢复快照
+
+```sh
+virsh snapshot-revert --domain rhel79 --snapshotname 1614330821
+```
+
+### 删除快照
+
+```sh
+virsh snapshot-delete rhel79 --snapshotname 1614330821
+```
