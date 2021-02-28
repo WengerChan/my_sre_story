@@ -203,14 +203,14 @@ state           服务状态:started,stopped,restarted,reload
 ### 模块: group
 
 ```
-gid=(null)          Optional 'GID' to set for the group.
+gid=(null)       Optional 'GID' to set for the group.
 local=no         Forces the use of "local" command alternatives on platforms that implement it.
                     This is useful in environments that use centralized authentication when you want to manipulate the local groups. (e.g. it uses 'lgroupadd' instead of 'groupadd').
                     This requires that these commands exist on the targeted host, otherwise it will be a fatal error.
-name                Name of the group to manage.
+name             Name of the group to manage.
 non_unique=no    This option allows to change the group ID to a non-unique value. Requires 'gid'.
                     Not supported on macOS or BusyBox distributions.
-state=present       Whether the group should be present or not on the remote host. (Choices: absent, present)
+state=present    Whether the group should be present or not on the remote host. (Choices: absent, present)
 system=no        If 'yes', indicates that the group created is a system group.
 ```
 
