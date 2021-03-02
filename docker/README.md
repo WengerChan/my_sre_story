@@ -53,13 +53,13 @@ Docker利用容器技术，独立运行一个独立或者一组应用，通过�
 
 ```sh
 yum remove docker \
->                   docker-client \
->                   docker-client-latest \
->                   docker-common \
->                   docker-latest \
->                   docker-latest-logrotate \
->                   docker-logrotate \
->                   docker-engine
+           docker-client \
+           docker-client-latest \
+           docker-common \
+           docker-latest \
+           docker-latest-logrotate \
+           docker-logrotate \
+           docker-engine
 ```
 
 2. 配置yum源
@@ -197,7 +197,7 @@ hello-world   latest    bf756fb1ae65   14 months ago   13.3kB
 # SIZE：      镜像大小
 ```
 
-**关于filter**
+**关于`filter`**
 
 The filtering flag (`-f` or `--filter`) format is of “`key=value`”. If there is more than one filter, then pass multiple flags (e.g., `--filter "foo=bar" --filter "bif=baz"`)
 
@@ -229,7 +229,7 @@ The currently supported filters are:
     busybox             glibc               21c16b6787c6        5 weeks ago         4.19 MB
     ```
 
-**关于format**
+**关于`format`**
 
 Placeholder	    |Description
 --              |--
