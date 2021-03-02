@@ -257,6 +257,193 @@ IMAGE ID            REPOSITORY                TAG
 #### 搜索镜像
 
 ```sh
-docker search
-docker image search
+docker search NAME
+
+# -f, --filter filter   Filter output based on conditions provided
+#     --format string   Pretty-print search using a Go template
+#     --limit int       Max number of search results (default 25)
+#     --no-trunc        Don't truncate output
+```
+
+**关于`filter`**
+
+```sh
+The currently supported filters are:
+
+stars (int - number of stars the image has)
+is-automated (boolean - true or false) - is the image automated or not
+is-official (boolean - true or false) - is the image official or not
+```
+
+**关于`format`**
+
+
+Placeholder	    |Description
+--              |--
+.Name	        |Image Name
+.Description	|Image description
+.StarCount	    |Number of stars for the image
+.IsOfficial	    |“OK” if image is official
+.IsAutomated	|“OK” if image build was automated
+
+#### 下载镜像
+
+```sh
+docker pull NAME[:TAG|@DIGEST]
+
+# -a, --all-tags                Download all tagged images in the repository
+#     --disable-content-trust   Skip image verification (default true)
+#     --platform string         Set platform if server is multi-platform capable
+# -q, --quiet                   Suppress verbose output
+```
+
+```sh
+[root@mgr ~]# docker pull mysql
+Using default tag: latest                <=标签
+latest: Pulling from library/mysql       <=库
+a076a628af6f: Already exists             <=联合文件系统, 分层下载, 对于已存在的layer将不会再下载
+f6c208f3f991: Pull complete 
+88a9455a9165: Pull complete 
+406c9b8427c6: Pull complete 
+7c88599c0b25: Pull complete 
+25b5c6debdaf: Pull complete 
+43a5816f1617: Pull complete 
+1a8c919e89bf: Pull complete 
+9f3cf4bd1a07: Pull complete 
+80539cea118d: Pull complete 
+201b3cad54ce: Pull complete 
+944ba37e1c06: Pull complete 
+Digest: sha256:feada149cb8ff54eade1336da7c1d080c4a1c7ed82b5e320efb5beebed85ae8c  <=镜像的Digest
+Status: Downloaded newer image for mysql:latest                                  <=pull状态
+docker.io/library/mysql:latest                                                   <=镜像的完整路径, docker pull mysql 等同于 docker pull docker.io/library/mysql:latest
+```
+
+#### 删除镜像
+
+```sh
+docker rmi IMAGE [IMAGE...]   # IMAGE可以为镜像名, 镜像名:TAG, 镜像的Digest
+docker image rm
+
+# -f, --force      Force removal of the image
+#     --no-prune   Do not delete untagged parents
+```
+
+```sh
+docker rmi mysql
+docker rmi mysql:latest
+docker rmi $(docker images -aq)   # 组合命令删除镜像
+```
+
+### 容器命令
+
+#### 新建容器并运行
+
+```sh
+docker run
+
+# -d, --detach          Run container in background and print container ID
+# -i, --interactive     Keep STDIN open even if not attached
+# -t, --tty             Allocate a pseudo-TTY
+# -p, --publish list    Publish a container's port(s) to the host
+# -P, --publish-all     Publish all exposed ports to random ports
+#     --expose          Expose a port or a range of ports
+```
+
+```sh
+docker run -it -p 127.0.0.1:8080:80 httpd   # -p IP:主机端口:容器端口
+docker run -it -p 8080:80 httpd             # -p 主机端口:容器端口
+docker run -it -p 172.0.0.1::80 httpd       # -p IP::容器端口(随机映射)
+docker run -it -p 80 httpd                  # -p 容器端口(随机映射
+docker run -it -p 8080:80 -p 8081:80 httpd  # -p 主机端口1:容器端口 -p 主机端口2:容器端口(多端口映射)
+
+docker run -it -P httpd                     # -P 随机端口映射
+
+docker run -it --expose 80 httpd            # 暴露80端口
+docker run -it --expose 5000-6000 http      # 暴露5000-6000端口
+```
+
+> 注: docker容器使用`-d`后台运行时, 就必须要有一个前台进程; 若docker发现没有这样的进程, 就会自动停止容器的运行
+
+#### 查看容器
+
+```sh
+docker ps 
+
+# -a, --all             Show all containers (default shows just running)
+# -f, --filter filter   Filter output based on conditions provided
+#     --format string   Pretty-print containers using a Go template
+# -n, --last int        Show n last created containers (includes all states) (default -1)
+# -l, --latest          Show the latest created container (includes all states)
+#     --no-trunc        Don't truncate output
+# -q, --quiet           Only display container IDs
+# -s, --size            Display total file sizes
+```
+
+**关于`filter`**
+
+Filter	                |Description
+--                      | --
+`id`	                |Container’s ID
+`name`	                |Container’s name
+`label`	                |An arbitrary string representing either a key or a key-value pair. Expressed as `<key>` or `<key>=<value>`
+`exited`	            |An integer representing the container’s exit code. Only useful with `--all`.
+`status`	            |One of `created`, `restarting`, `running`, `removing`, `paused`, `exited`, or `dead`
+`ancestor`	            |Filters containers which share a given image as an ancestor. Expressed as `<image-name>[:<tag>]`, `<image id>`, or `<`image@digest>`
+`before` or `since`	    |Filters containers created before or after a given container ID or name
+`volume`	            |Filters running containers which have mounted a given volume or bind mount.
+`network`	            |Filters running containers connected to a given network.
+`publish` or `expose`	|Filters containers which publish or expose a given port. Expressed as `<port>[/<proto>]` or `<startport-endport>/[<proto>]`
+`health`	            |Filters containers based on their healthcheck status. One of `starting`, `healthy`, `unhealthy` or `none`.
+`isolation`	            |Windows daemon only. One of default, process, or hyperv.
+`is-task`	            |Filters containers that are a “task” for a service. Boolean option (`true` or `false`)
+
+**关于`format`**
+
+Placeholder	    |Description
+--              | --
+`.ID`	        |Container ID
+`.Image`	    |Image ID
+`.Command`	    |Quoted command
+`.CreatedAt`	|Time when the container was created.
+`.RunningFor`	|Elapsed time since the container was started.
+`.Ports`	    |Exposed ports.
+`.State`	    |Container status (for example; “created”, “running”, “exited”).
+`.Status`	    |Container status with details about duration and health-status.
+`.Size`	        |Container disk size.
+`.Names`	    |Container names.
+`.Labels`	    |All labels assigned to the container.
+`.Label`	    |Value of a specific label for this container. For example '{{.Label "com.docker.swarm.cpu"}}'
+`.Mounts`	    |Names of the volumes mounted in this container.
+`.Networks`	    |Names of the networks attached to this container.
+
+#### 退出容器
+
+```sh
+exit     # 容器停止; 如果是从docker exec进入的, 执行exit后容器将不会停止
+CTRL+q+P # 容器保持运行
+```
+
+#### 删除容器
+
+```sh
+docker rm 容器
+
+# -f, --force     Force the removal of a running container (uses SIGKILL)
+# -l, --link      Remove the specified link
+# -v, --volumes   Remove anonymous volumes associated with the container # 删除与容器关联的匿名卷 
+```
+
+```sh
+# 删除全部容器
+docker rm -f $(docker ps -aq)
+docker ps -aq | xargs docker rm -f
+```
+
+#### 启动,停止,重启,强制停止
+
+```sh
+docker start 容器
+docker stop 容器
+docker restart 容器
+docker kill 容器
 ```
