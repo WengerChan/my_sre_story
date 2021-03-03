@@ -442,8 +442,265 @@ docker ps -aq | xargs docker rm -f
 #### 启动,停止,重启,强制停止
 
 ```sh
+docker constainer start/stop/restart/kill
 docker start 容器
 docker stop 容器
 docker restart 容器
 docker kill 容器
+```
+
+#### 查看日志
+
+```sh
+docker container logs
+docker logs
+
+#     --details        Show extra details provided to logs
+# -f, --follow         Follow log output
+#     --since string   Show logs since timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+# -n, --tail string    Number of lines to show from the end of the logs (default "all")
+# -t, --timestamps     Show timestamps
+#     --until string   Show logs before a timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+```
+
+#### 查看容器进程信息
+
+```sh
+docker container top
+docker top
+
+[root@mgr ~]# docker container top 5b4fe7e46bb2
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                4902                4882                0                   13:20               pts/0               00:00:00            /bin/bash
+```
+
+#### 查看容器元数据
+
+```sh
+docker container inspect
+docker inspect
+```
+
+```json
+[root@mgr ~]# docker container inspect 5b4fe7e46bb2
+[
+    {
+        "Id": "5b4fe7e46bb2cc446d132a747282be8c1decffb329866cee46009030de2c0e0a",
+        "Created": "2021-03-02T09:43:49.931353465Z",
+        "Path": "/bin/bash",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 4902,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2021-03-03T05:20:10.173932733Z",
+            "FinishedAt": "2021-03-02T09:44:35.303592038Z"
+        },
+        "Image": "sha256:300e315adb2f96afe5f0b2780b87f28ae95231fe3bdd1e16b9ba606307728f55",
+        "ResolvConfPath": "/var/lib/docker/containers/5b4fe7e46bb2cc446d132a747282be8c1decffb329866cee46009030de2c0e0a/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/5b4fe7e46bb2cc446d132a747282be8c1decffb329866cee46009030de2c0e0a/hostname",
+        "HostsPath": "/var/lib/docker/containers/5b4fe7e46bb2cc446d132a747282be8c1decffb329866cee46009030de2c0e0a/hosts",
+        "LogPath": "/var/lib/docker/containers/5b4fe7e46bb2cc446d132a747282be8c1decffb329866cee46009030de2c0e0a/5b4fe7e46bb2cc446d132a747282be8c1decffb329866cee46009030de2c0e0a-json.log",
+        "Name": "/modest_hertz",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "host",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "KernelMemory": 0,
+            "KernelMemoryTCP": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/43067febcc87cc19652935119fc243b0763477120f09785dfbe240db7209daa6-init/diff:/var/lib/docker/overlay2/d704a3d4e9c4680f35cf606c17376df867f3f10058a761dcf745a0edd4f304a7/diff",
+                "MergedDir": "/var/lib/docker/overlay2/43067febcc87cc19652935119fc243b0763477120f09785dfbe240db7209daa6/merged",
+                "UpperDir": "/var/lib/docker/overlay2/43067febcc87cc19652935119fc243b0763477120f09785dfbe240db7209daa6/diff",
+                "WorkDir": "/var/lib/docker/overlay2/43067febcc87cc19652935119fc243b0763477120f09785dfbe240db7209daa6/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "5b4fe7e46bb2",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "centos",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "org.label-schema.build-date": "20201204",
+                "org.label-schema.license": "GPLv2",
+                "org.label-schema.name": "CentOS Base Image",
+                "org.label-schema.schema-version": "1.0",
+                "org.label-schema.vendor": "CentOS"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "c73d48ee4fa1292d166566cb1823808b65a39493a060254b22b9ba4e777cc166",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {},
+            "SandboxKey": "/var/run/docker/netns/c73d48ee4fa1",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "4e8fc042cae154c55a2d165cc231dbb21190f6e143bdbb7d2d4d2afd6ff6fa28",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:02",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "abd7f022cf7727fa2b555e64d4f9ae97c87a487fb7488ab44d550a1e022df90e",
+                    "EndpointID": "4e8fc042cae154c55a2d165cc231dbb21190f6e143bdbb7d2d4d2afd6ff6fa28",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:02",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+```
+
+#### 进入正在运行的容器
+
+```sh
+docker exec
+docker attach
+
+docker exec
+# -d, --detach               Detached mode: run command in the background 在后台执行一个进程, 如果一个命令需要长时间进程，使用-d参数会很快返回
+#     --detach-keys string   Override the key sequence for detaching a container
+# -e, --env list             Set environment variables
+#     --env-file list        Read in a file of environment variables
+# -i, --interactive          Keep STDIN open even if not attached
+#     --privileged           Give extended privileges to the command
+# -t, --tty                  Allocate a pseudo-TTY
+# -u, --user string          Username or UID (format: <name|uid>[:<group|gid>])
+# -w, --workdir string       Working directory inside the container
 ```
