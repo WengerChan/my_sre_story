@@ -1,9 +1,10 @@
 # my_sre_story
 
 > 弱小和无知不是生存的障碍，傲慢才是。--《三体》  
-> Fight！
-> Fight2!
-
+> Fight！ 
+> Fight2!  
+> Fight3!  
+ 
 
 - [Linux](./shell/)
   * [Linux双网卡路由配置](./Linux/Linux双网卡路由配置.md)
